@@ -1,11 +1,13 @@
-# React + TypeScript Starter Project
+# Wasla Tech Platform
 
-هذا المشروع عبارة عن هيكل أساسي (Starter Architecture) لتطبيق React باستخدام TypeScript و Vite.
+A modern React + TypeScript application for the Wasla Tech platform starter project.
 
----
+## Prerequisites
+- Node.js (v16+ recommended) installed on your machine.
+- npm (comes bundled with Node.js).
 
-## 🚀 طريقة تشغيل المشروع محلياً (Local Setup)
-
-1. **تثبيت الحزم والاعتمادات:**
-```bash
-npm install
+## Setup & Configuration
+1. Clone the repository and navigate to the project directory.
+2. Create a local environment file based on the example template:
+   ```bash
+   cp .env.example .env
