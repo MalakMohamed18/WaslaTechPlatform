@@ -25,7 +25,7 @@ flowchart TD
     subgraph Fallback Mechanism
         I
     end
-
+```
 
 1. Document Ingestion, Extraction & Chunking
 Document Ingestion & Extraction:
