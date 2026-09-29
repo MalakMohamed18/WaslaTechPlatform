@@ -3,11 +3,6 @@
 This document outlines the architecture and workflow of the AI Research Assistant, detailing how data flows from document ingestion to generating grounded answers for users.
 
 ---
-# AI Research Assistant Pipeline Design
-
-This document outlines the architecture and workflow of the AI Research Assistant, detailing how data flows from document ingestion to generating grounded answers for users.
-
----
 
 ## 📊 AI Pipeline Workflow Diagram
 
