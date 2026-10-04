@@ -8,55 +8,80 @@ This document outlines the architecture and workflow of the AI Research Assistan
 
 ```mermaid
 flowchart TD
-    A[Documents: PDF / Text] -->|Chunking & Overlap| B[Text Chunks 500-1000 chars]
-    B -->|Embedding Models| C[Vector Database & Metadata]
-    D[User Query] -->|Semantic Search| C
-    C -->|Retrieved Chunks & Context| E[LLM Generation Prompt]
-    E -->|Grounded Answer + Citations| F[Frontend Interface]
+    A[Documents: PDF / Text] --> B[Text Extraction & OCR]
+    B --> C[Text Chunking & Metadata]
+    C --> D[Embedding Models]
+    D --> E[Vector Database]
     
-    subgraph Fallback Check
-    C -->|Low Similarity / No Context| G[Fallback: Return Not Enough Info]
+    F[User Query] --> G[Semantic Search & Retrieval]
+    E --> G
+    G --> H{Similarity Threshold Check}
+    
+    H -->|Below Threshold / Insufficient Context| I[Fallback: Return Not Enough Info]
+    H -->|Passed| J[LLM Generation Prompt]
+    J --> K[Grounded Answer + Validated Citations]
+    K --> L[Frontend Interface]
+    
+    subgraph Fallback Mechanism
+        I
     end
- 
+```
 
----
+1. Document Ingestion, Extraction & Chunking
+Document Ingestion & Extraction:
 
-## 1. Core AI Pipeline Stages
+Text Extraction: Direct handling of native text PDFs and standard text files.
 
-1. **Document Ingestion & Chunking:**
-   * Documents (PDFs, text files) are uploaded to the system.
-   * Text is split into small, manageable chunks (ranging from 500 to 1000 characters) with a defined text overlap to preserve context across splits.
+OCR Activation: Optical Character Recognition (OCR) integration for scanned or image-based PDFs.
 
-2. **Embedding & Vector Database:**
-   * Each chunk is converted into numerical vectors using embedding models.
-   * Vectors are stored in a Vector Database alongside metadata (e.g., file name, page number, chunk index).
+Error Handling: Graceful management of empty, corrupted, or unsupported files with clear alert messaging.
 
-3. **Retrieval Phase:**
-   * The user's query is received from the frontend interface.
-   * The query is embedded and matched against the Vector Database using Semantic Search to retrieve the most relevant chunks.
+Text Chunking & Metadata:
 
-4. **Generation Phase (LLM):**
-   * The user's query and the retrieved context chunks are combined into a structured Prompt template.
-   * The prompt is sent to the Large Language Model (LLM) to generate an objective and accurate answer based strictly on the provided context.
+Text is split into manageable chunks ranging from 500 to 1,000 characters (character-based initially, with provisions for token evaluation).
 
-5. **Citations & Sources:**
-   * The system extracts the source metadata (document name and page number) and presents them alongside the generated response to the frontend.
+Overlap: Overlap ratios will be determined and optimized through empirical testing and evaluation to prevent context loss across splits.
 
----
+Metadata Tracking: Each chunk is linked to robust metadata (e.g., Document ID, Page Number, Chunk ID, Source URL) to ensure precise source traceability.
 
-## 🛡️ Fallback Mechanisms
-* If the similarity score of retrieved search results is below the acceptable threshold, or no matching context is found:
-  * The model prevents hallucination and abstains from guessing.
-  * The system returns a clear fallback message: *"Sorry, there is not enough information in the available documents to answer this question."*
+2. Embedding & Vector Database
+Each processed chunk is converted into numerical vector embeddings using selected embedding models.
 
----
+Vectors are securely stored in the Vector Database alongside their respective metadata.
 
-## 🔗 Shared Dependencies
-* **Backend Team:** Align on API contracts for query submission and response payloads (including sources).
-* **Data/Docs Team:** Review initial document quality to optimize chunking strategies.
+3. Retrieval Phase (Semantic Search)
+Top-K Retrieval: Define the initial number of retrieved chunks based on experimental performance.
 
----
+Filtering: Implement filtering mechanisms by source document or category when needed.
+
+Reranking: Assess whether a Reranking service is required within the current MVP scope based on retrieval evaluation results.
+
+4. Generation Phase & Citation Validation
+Structured Prompting: The user's query and the retrieved context chunks are combined into a structured prompt template for the LLM.
+
+Citation Grounding & Validation:
+
+Every generated answer must include verified citations linked directly to actual retrieved chunks (Document ID, Page Number, Chunk ID, Source URL).
+
+Programmatic validation ensures the LLM generates citations strictly derived from the retrieved context rather than general parametric memory (Hallucination Prevention).
+
+🛡️ Fallback Strategy
+Similarity Threshold: The similarity score threshold is established through rigorous testing and evaluation rather than assumed fixed constants.
+
+Insufficient Context Handling: If search results are retrieved but prove inadequate to answer the user's query accurately, the system abstains from guessing and triggers the designated fallback response.
+
+🧪 Evaluation & Quality Assurance
+Test Dataset: Prepare a curated set of test questions mapped to known reference documents.
+
+Accuracy & Citation Checks: Validate answer accuracy against source material and verify citation correctness.
+
+Edge Case Testing: Test insufficient information scenarios and log instances where the system retrieves suboptimal context or generates errors.
+
+🔗 Shared Dependencies
+Backend Team: Align on API contracts for query submission and response payloads (including sources).
+
+Data/Docs Team: Review initial document quality to optimize chunking strategies.
 
 ## 🚀 Action Items
-* Get team approval on this pipeline design.
-* Begin implementation of the ingestion and retrieval scripts inside the `docs/` structure.
+- Get team approval on this finalized pipeline design.
+- Move actual code implementation and script development to the agreed code repository structure (outside of `docs/`), coordinating ownership and tasks with the team.
