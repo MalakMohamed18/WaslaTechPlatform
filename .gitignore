@@ -12,3 +12,7 @@ node_modules/
 dist/
 package-lock.json
  290b6960ab5540bdab3e92a6d05a598c2ce6bc7e
+.env
+node_modules/
+dist/
+package-lock.json
