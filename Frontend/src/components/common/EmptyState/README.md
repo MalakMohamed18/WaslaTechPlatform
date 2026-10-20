@@ -1,31 +1,16 @@
-# Empty Component
+# EmptyState
 
-مكون يعرض حالة عدم وجود بيانات (Empty State) لتنبيه المستخدم بطريقة واضحة وإتاحة تخصيص المحتوى.
+Shown when there is no data to display.
 
-## Features - المميزات
-- **Fallback Message:** يعرض نصاً افتراضياً `"No data available."` عند عدم تمرير أي محتوى.
-- **Custom Content Support:** يدعم تمرير أي مكونات أو أزرار فرعية عبر `children` لاستبدال النص الافتراضي (مثل إضافة زر إجراء "إضافة جديد").
-- **Custom Styling:** يتيح تمرير `className` للتنسيق والتحكم بالمسافات.
+## Usage
 
-## Props - الخصائص
-| Prop | Type | Required | Default | المعنى |
-| --- | --- | --- | --- | --- |
-| message | string | No | "No data available." | النص الافتراضي المعروض في حال عدم تمرير محتوى داخلي |
-| children | ReactNode | No | undefined | محتوى مخصص أو أزرار تفاعلية تظهر بدلاً من النص الافتراضي |
-| className | string | No | "" | كلاسات إضافية للتنسيق |
+    import { EmptyState } from "../components/common";
+    <EmptyState message="No projects yet." />
 
-## Usage - طريقة الاستخدام
-```tsx
-import Empty from './Empty';
+## Props
 
-// استخدام افتراضي
-<Empty/>
-
-// رسالة مخصصة
-<Empty message="لا توجد عناصر لعرضها حالياً"/>
-
-// تمرير عناصر مخصصة
-<Empty>
-  <p>قائمة البيانات فارغة</p>
-  <button>إضافة عنصر جديد</button>
-</Empty>
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| message | string | "No data available." | Text shown when no children are passed |
+| children | ReactNode | - | Custom content, for example an action button |
+| className | string | "" | Extra CSS classes |

@@ -1,20 +1,18 @@
 import React from "react";
 import type { ReactNode } from "react";
+import "../common.css";
 
-interface LoadingProps {
+export interface LoadingStateProps {
   children?: ReactNode;
   className?: string;
 }
 
-function Loading({
-  children = "Loading...",
-  className = "",
-}: LoadingProps) {
+function LoadingState({ children = "Loading...", className = "" }: LoadingStateProps) {
   return (
-    <div className={`loading ${className}`} role="status" aria-live="polite">
+    <div className={`ui-state ui-state--loading ${className}`.trim()} role="status" aria-live="polite">
       {children}
     </div>
   );
 }
 
-export default Loading;
+export default LoadingState;

@@ -1,22 +1,19 @@
 import React from "react";
 import type { ReactNode } from "react";
+import "../common.css";
 
-interface EmptyProps {
+export interface EmptyStateProps {
   message?: string;
   children?: ReactNode;
   className?: string;
 }
 
-function Empty({
-  message = "No data available.",
-  children,
-  className = "",
-}: EmptyProps) {
+function EmptyState({ message = "No data available.", children, className = "" }: EmptyStateProps) {
   return (
-    <div className={`empty ${className}`}>
+    <div className={`ui-state ui-state--empty ${className}`.trim()}>
       {children || <p>{message}</p>}
     </div>
   );
 }
 
-export default Empty;
+export default EmptyState;

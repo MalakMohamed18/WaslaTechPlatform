@@ -1,23 +1,15 @@
-# Section Component
+# Section
 
-مكون قسم قابل لإعادة الاستخدام (Reusable Section Component) يُستخدم لتقسيم صفحات الموقع وإتاحة ربط الأقسام بشكل مرن.
+Wraps a part of a page with vertical spacing (renders a section element).
 
-## Features - المميزات
-- **Semantic HTML:** بيستخدم عنصر `<section>` لتحسين هيكلة الصفحة والـ SEO.
-- **Anchor Navigation:** يدعم تمرير `id` للتنقل المباشر بين الأقسام داخل الصفحة (Scroll Anchors).
-- **Custom Classes:** بيسمح بتمرير كلاسات إضافية بمرونة عن طريق `className`.
+## Usage
 
-## Props - الخصائص
-| Prop | Type | Required | المعنى |
-| --- | --- | --- | --- |
-| children | ReactNode | Yes | المحتوى المعروض داخل القسم |
-| className | string | No | كلاسات إضافية لتحديد الخلفيات أو المسافات |
-| id | string | No | معرف القسم للوصول السريع |
+    import { Section } from "../components/common";
+    <Section><Heading level={2}>About</Heading></Section>
 
-## Usage - طريقة الاستخدام
-```tsx
-import Section from './Section';
+## Props
 
-<Section className="about-section" id="about">
-  <h2>عن منصة وصلة</h2>
-</Section>
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| children | ReactNode | required | Section content |
+| className | string | "" | Extra CSS classes |

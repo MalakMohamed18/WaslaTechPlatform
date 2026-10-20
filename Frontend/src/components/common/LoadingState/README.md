@@ -1,24 +1,15 @@
-# Loading Component
+# LoadingState
 
-مكون يعرض حالة التحميل (Loading State) بشكل مرن ومناسب للوصولية (Accessibility).
+Message shown while data is loading.
 
-## Features - المميزات
-- **Accessible:** بيحتوي على `role="status"` و `aria-live="polite"` لتنبيه قارئات الشاشة تلقائياً أثناء التحميل.
-- **Customizable Content:** يدعم تمرير نص أو مكون فرعي (Spinner / Icons) عبر `children` مع وجود نص افتراضي `"Loading..."`.
-- **Custom Styling:** يسمح بتمرير `className` لتحديد المسافات والمحاذاة.
+## Usage
 
-## Props - الخصائص
-| Prop | Type | Required | Default | المعنى |
-| --- | --- | --- | --- | --- |
-| children | ReactNode | No | "Loading..." | المحتوى أو النص المعروض داخل مكون التحميل |
-| className | string | No | "" | كلاسات إضافية للتنسيق |
+    import { LoadingState } from "../components/common";
+    <LoadingState>Fetching your data...</LoadingState>
 
-## Usage - طريقة الاستخدام
-```tsx
-import Loading from './Loading';
+## Props
 
-// استخدام افتراضي
-<Loading/>
-
-// تخصيص النص أو الشحنة
-<Loading>جاري تحميل البيانات...</Loading>
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| children | ReactNode | "Loading..." | Custom loading content |
+| className | string | "" | Extra CSS classes |

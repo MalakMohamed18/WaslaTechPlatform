@@ -1,22 +1,16 @@
-# Basic Card Component
+# Card
 
-مكون البطاقة الأساسي القابل لإعادة الاستخدام (Reusable Card Component) يُستخدم لتغليف المحتوى وتجميعه في حاوية مرئية متميزة.
+Simple bordered box to group content.
 
-## Features - المميزات
-- **Flexible Container:** بيسمح بتمرير أي محتوى أو عناصر داخلية بمرونة عن طريق `children`.
-- **Custom Classes:** يدعم تمرير `className` لتحديد التنسيقات والخلفيات والحدود حسب الحاجة.
+## Usage
 
-## Props - الخصائص
-| Prop | Type | Required | Default | المعنى |
-| --- | --- | --- | --- | --- |
-| children | ReactNode | Yes | - | المحتوى الداخلي للبطاقة |
-| className | string | No | "" | كلاسات إضافية لتطبيق التنسيقات |
+    import { Card } from "../components/common";
+    <Card title="Profile">Content here</Card>
 
-## Usage - طريقة الاستخدام
-```tsx
-import Card from './Card';
+## Props
 
-<Card className="profile-card">
-  <h3>اسم المستخدم</h3>
-  <p>تفاصيل الحساب...</p>
-</Card>
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| children | ReactNode | required | Card content |
+| title | string | - | Optional title shown at the top |
+| className | string | "" | Extra CSS classes |
